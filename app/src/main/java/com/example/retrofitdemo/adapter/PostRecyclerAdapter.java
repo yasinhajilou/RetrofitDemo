@@ -32,7 +32,7 @@ public class PostRecyclerAdapter extends RecyclerView.Adapter<PostRecyclerAdapte
     @Override
     public PostRecyclerAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_master, parent, false);
-        return new ViewHolder(view,mRecyclerItemClickListener);
+        return new ViewHolder(view,mRecyclerItemClickListener , mPosts);
     }
 
     @Override
@@ -48,10 +48,12 @@ public class PostRecyclerAdapter extends RecyclerView.Adapter<PostRecyclerAdapte
      class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         TextView tvTitle;
         RecyclerItemClickListener mListener;
-         ViewHolder(@NonNull View itemView , RecyclerItemClickListener recyclerItemClickListener) {
+        List<Post> mPosts;
+         ViewHolder(@NonNull View itemView , RecyclerItemClickListener recyclerItemClickListener , List<Post> posts ) {
             super(itemView);
             tvTitle = itemView.findViewById(R.id.tvTitle);
              mListener = recyclerItemClickListener;
+             mPosts = posts;
              itemView.setOnClickListener(this);
         }
 
@@ -61,7 +63,7 @@ public class PostRecyclerAdapter extends RecyclerView.Adapter<PostRecyclerAdapte
 
          @Override
          public void onClick(View view) {
-             mListener.onClick(mPosts.get(getAdapterPosition()).getId());
+             mListener.onClick(mPosts.get(getAdapterPosition()).getId() , mPosts.get(getAdapterPosition()));
          }
      }
 }

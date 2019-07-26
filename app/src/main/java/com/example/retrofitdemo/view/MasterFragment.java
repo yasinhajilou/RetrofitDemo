@@ -82,16 +82,15 @@ public class MasterFragment extends Fragment implements RecyclerItemClickListene
     }
 
     @Override
-    public void onClick(final int postId) {
-//        mNavController.navigate(R.id.action_masterFragment_to_detailFragment,bundle);
+    public void onClick(final int postId , final Post post) {
         mRepo.getComments(postId, new MyCallback<List<Comment>>() {
             @Override
             public void onSuccessful(List<Comment> data) {
                 if (data != null) {
-                    mModel.select(data.get(0));
+                    mModel.select(data);
+                    mModel.selectPost(post);
+                    Toast.makeText(getContext(), String.valueOf(data.size()), Toast.LENGTH_SHORT).show();
                     mNavController.navigate(R.id.action_masterFragment_to_detailFragment);
-                }else {
-                    Toast.makeText(getContext(), "it is null", Toast.LENGTH_SHORT).show();
                 }
             }
 
